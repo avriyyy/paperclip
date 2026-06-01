@@ -49,7 +49,7 @@ COPY --from=deps /app /app
 COPY . .
 RUN NODE_OPTIONS="--max-old-space-size=3072" pnpm --filter @paperclipai/ui build
 RUN pnpm --filter @paperclipai/plugin-sdk build
-RUN pnpm --filter @paperclipai/server build
+RUN NODE_OPTIONS="--max-old-space-size=3072" pnpm --filter @paperclipai/server build
 RUN test -f server/dist/index.js || (echo "ERROR: server build output missing" && exit 1)
 
 FROM base AS production
